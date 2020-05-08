@@ -25,7 +25,7 @@ SECRET_KEY = '#xt!lkorzg3)5i$(bk@7=1^khxr146ftl*#(d82hozrjptemb%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['resumeranker.herokuapp.com']
 
 
 # Application definition
