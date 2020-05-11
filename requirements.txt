@@ -1,3 +1,6 @@
 django
 gunicorn
 django-heroku
+django-webpack-loader
+djangorestframework
+django-cors-headers
