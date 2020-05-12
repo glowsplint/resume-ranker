@@ -143,4 +143,6 @@ try:
 except ImportError:
     pass
 
+DEBUG = True
+
 django_heroku.settings(locals())
