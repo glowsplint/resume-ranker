@@ -20,7 +20,7 @@ https://dev.to/saymy__name__/hooking-up-django-and-vue-js-19j3
 import django_heroku
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+FRONTEND_DIR = os.path.join(BASE_DIR, 'vue-frontend')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -123,18 +123,17 @@ USE_TZ = True
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'vue-frontend/dist'),
-    os.path.join(BASE_DIR, 'vue-frontend/dist/static'),
+    os.path.join(FRONTEND_DIR, 'dist'),
+    os.path.join(FRONTEND_DIR, 'dist/static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': '',
-        'STATS_FILE': os.path.join(BASE_DIR, 'vue-frontend', 'webpack-stats.json')
+        'STATS_FILE': os.path.join(FRONTEND_DIR, 'webpack-stats.json')
     }
 }
 
