@@ -7,20 +7,18 @@ module.exports = {
   // publicPath: "http://127.0.0.1:8080/", // Comment out before deployment
   publicPath: "", // Use this in deployment
   assetsDir: "static",
+  transpileDependencies: ["vuetify"],
 
-  chainWebpack: (config) => {
+  chainWebpack: config => {
     config
       .plugin("BundleTracker")
       .use(BundleTracker, [{ filename: "./webpack-stats.json" }]);
 
     config.output.filename("bundle.js");
-
     config.optimization.splitChunks(false);
-
     config.resolve.alias.set("__STATIC__", "static");
 
     config.devServer
-      // the first 3 lines of the following code have been added to the configuration
       // .public("http://127.0.0.1:8080") // Comment out before deployment
       .host("127.0.0.1")
       .port(8080)
@@ -34,7 +32,7 @@ module.exports = {
   css: {
     extract: {
       filename: "bundle.css",
-      chunkFilename: "bundle.css",
-    },
-  },
+      chunkFilename: "bundle.css"
+    }
+  }
 };

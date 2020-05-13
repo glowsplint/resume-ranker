@@ -1,27 +1,21 @@
 <template>
-  <div id="app">
-    <FileUpload />
-  </div>
+  <v-app>
+    <v-content>
+      <FileUpload />
+      <TextInput />
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-import FileUpload from "./components/FileUpload.vue";
+import FileUpload from "@/components/FileUpload";
+import TextInput from "@/components/TextInput";
 
 export default {
   name: "App",
   components: {
-    FileUpload
+    FileUpload,
+    TextInput
   }
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

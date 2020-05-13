@@ -1,1 +1,23 @@
-{"status":"done","chunks":{"app":[{"name":"bundle.css","path":"C:\\Users\\tymteo\\OneDrive - Capgemini\\Documents\\Coding\\Resume Ranker\\django_project\\vue-frontend\\dist\\bundle.css"},{"name":"bundle.js","path":"C:\\Users\\tymteo\\OneDrive - Capgemini\\Documents\\Coding\\Resume Ranker\\django_project\\vue-frontend\\dist\\bundle.js"}]}}
+{
+  "status": "done",
+  "chunks": {
+    "app": [
+      {
+        "name": "bundle.css",
+        "path": "C:\\Users\\tymteo\\OneDrive - Capgemini\\Documents\\Coding\\Resume Ranker\\django_project\\vue-frontend\\dist\\bundle.css"
+      },
+      {
+        "name": "bundle.js",
+        "path": "C:\\Users\\tymteo\\OneDrive - Capgemini\\Documents\\Coding\\Resume Ranker\\django_project\\vue-frontend\\dist\\bundle.js"
+      },
+      {
+        "name": "bundle.css.map",
+        "path": "C:\\Users\\tymteo\\OneDrive - Capgemini\\Documents\\Coding\\Resume Ranker\\django_project\\vue-frontend\\dist\\bundle.css.map"
+      },
+      {
+        "name": "bundle.js.map",
+        "path": "C:\\Users\\tymteo\\OneDrive - Capgemini\\Documents\\Coding\\Resume Ranker\\django_project\\vue-frontend\\dist\\bundle.js.map"
+      }
+    ]
+  }
+}

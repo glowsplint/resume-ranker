@@ -1,5 +1,5 @@
 <template>
-  <div class="FileUpload">
+  <v-container>
     <VueFileAgent
       ref="vueFileAgent"
       :theme="'list'"
@@ -11,19 +11,21 @@
       :maxFiles="10"
       :helpText="'Choose .pdf or .docx files'"
       :errorText="{
-    type: 'Invalid file type. Only .pdf or .docx allowed',
-    size: 'Files should not exceed 2MB in size',
-    }"
+        type: 'Invalid file type. Only .pdf or .docx allowed',
+        size: 'Files should not exceed 2MB in size'
+      }"
       @select="filesSelected($event)"
       @beforedelete="onBeforeDelete($event)"
       @delete="fileDeleted($event)"
       v-model="fileRecords"
     />
-    <button
+    <v-btn
+      class="mt-2"
       :disabled="!fileRecordsForUpload.length"
       @click="uploadFiles()"
-    >Upload {{ fileRecordsForUpload.length }} files</button>
-  </div>
+      >Upload {{ fileRecordsForUpload.length }} files</v-btn
+    >
+  </v-container>
 </template>
 
 <script>
@@ -84,4 +86,3 @@ export default {
   }
 };
 </script>
-

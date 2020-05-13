@@ -22,9 +22,9 @@ The Django framework was chosen because of the ease of implementing login functi
 2. ~~Set up Vue project~~ (6/5)
 3. ~~Enable Django hot-reloading in development serving Vue frontend~~ (8/5)
 4. ~~Rewrite the script to use Levenshtein distance instead of the spaCy language models~~ (11/5)
-5. ~~Deploy Vue frontend with Django backend on Heroku platform~~ (12/5) - Broke this in 7.
+5. ~~Deploy Vue frontend with Django backend on Heroku platform~~ (12/5)
 6. ~~Set up Vue upload file dialog~~ (13/3)
-7. Set up Vue text input space
+7. ~~Set up Vue text input space~~ (13/3)
 8. Set up API between frontend and backend
 9. Set up Python script to run on the API call
 10. Set up Vue frontend to display the API response
@@ -32,8 +32,14 @@ The Django framework was chosen because of the ease of implementing login functi
 
 ## Dependencies
 
-We used [VueFileAgent](https://github.com/safrazik/vue-file-agent) for the frontend upload UI.
+| Dependency                                                                             | Version |
+| -------------------------------------------------------------------------------------- | ------- |
+| [**vuetify**](https://github.com/vuetifyjs/vuetify)                                    | 2.2.28  |
+| [vue-file-agent](https://github.com/safrazik/vue-file-agent)                           | 1.7.1   |
+| [webpack-bundle-tracker](https://www.npmjs.com/package/webpack-bundle-tracker/v/0.4.3) | 0.4.3   |
 
-### Transitioning from development to deployment
+\*_In the dependency table above,_ **bold text** _denotes a Vue plugin._
 
-You will need to comment/uncomment certain lines in the vue.config.js file, located at '\vue-frontend\vue.config.js'.
+## Transitioning from development to deployment
+
+You will need to comment/uncomment certain lines in the vue.config.js file, located at `'.\vue-frontend\vue.config.js'`.
