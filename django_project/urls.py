@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.conf.urls import include
 from django.views.generic import TemplateView
-from dragdropapi.views import IndexTemplateView
+from dragdropapi import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),
+    path('upload', views.upload),
+    path("", views.IndexTemplateView.as_view()),
 ]

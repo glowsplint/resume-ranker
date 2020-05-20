@@ -1,87 +1,78 @@
 <template>
   <v-container>
-    <VueFileAgent
-      ref="vueFileAgent"
-      :theme="'list'"
-      :multiple="true"
-      :deletable="true"
-      :meta="true"
-      :accept="'.pdf,.docx'"
-      :maxSize="'2MB'"
-      :maxFiles="10"
-      :helpText="'Choose .pdf or .docx files'"
-      :errorText="{
-        type: 'Invalid file type. Only .pdf or .docx allowed',
-        size: 'Files should not exceed 2MB in size'
-      }"
-      @select="filesSelected($event)"
-      @beforedelete="onBeforeDelete($event)"
-      @delete="fileDeleted($event)"
-      v-model="fileRecords"
+    <!-- helpText="'Choose .pdf or .docx files'" -->
+    <!-- type: 'Invalid file type. Only .pdf or .docx allowed', -->
+    <!-- size: 'Files should not exceed 2MB in size' -->
+    <v-textarea
+      outlined
+      auto-grow
+      label="Input keywords"
+      v-model="inputPhrases"
     />
-    <v-btn
-      class="mt-2"
-      :disabled="!fileRecordsForUpload.length"
-      @click="uploadFiles()"
-      >Upload {{ fileRecordsForUpload.length }} files</v-btn
+    <v-file-input
+      ref="files"
+      show-size
+      counter
+      clearable
+      multiple
+      accept=".docx, .pdf"
+      v-model="files"
+    />
+    <v-btn class="mt-2" :disabled="!files.length" @click="sendFile()"
+      >Upload {{ files.length }} files</v-btn
     >
+    <v-btn class="mt-2 ml-2" @click="reset()">Reset</v-btn>
   </v-container>
 </template>
 
 <script>
+// https://www.youtube.com/watch?v=dxgbgYtNzCw
+import axios from "axios";
+import _ from "lodash";
+
 export default {
   name: "FileUpload",
   data() {
     return {
-      fileRecords: [],
-      uploadUrl: "http://127.0.0.1:5000/upload",
-      uploadHeaders: { "X-Test-Header": "vue-file-agent" },
-      fileRecordsForUpload: []
+      files: [],
+      message: "",
+      error: false,
+      inputPhrases: `python developer
+full stack web development
+django frontend`
     };
   },
   methods: {
-    uploadFiles() {
-      // Using the default uploader. You may use another uploader instead.
-      this.$refs.vueFileAgent.upload(
-        this.uploadUrl,
-        this.uploadHeaders,
-        this.fileRecordsForUpload
-      );
-      this.fileRecordsForUpload = [];
+    sendFile() {
+      // The first item in the form is the inputPhrase string, the rest are the files
+      let formData = new FormData();
+      formData.append("inputPhrases", this.inputPhrases);
+
+      _.forEach(this.files, file => {
+        formData.append("files", file);
+      });
+
+      axios
+        .post("/upload", formData)
+        .then(response => {
+          console.log(`Received server response:`);
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log(`Error: ${error}`);
+        });
+
+      this.inputPhrases = "";
+      this.message = "Files have been uploaded";
+      this.files = [];
     },
-    deleteUploadedFile(fileRecord) {
-      // Using the default uploader. You may use another uploader instead.
-      this.$refs.vueFileAgent.deleteUpload(
-        this.uploadUrl,
-        this.uploadHeaders,
-        fileRecord
-      );
-    },
-    filesSelected(fileRecordsNewlySelected) {
-      var validFileRecords = fileRecordsNewlySelected.filter(
-        fileRecord => !fileRecord.error
-      );
-      this.fileRecordsForUpload = this.fileRecordsForUpload.concat(
-        validFileRecords
-      );
-    },
-    onBeforeDelete(fileRecord) {
-      var i = this.fileRecordsForUpload.indexOf(fileRecord);
-      if (i !== -1) {
-        this.fileRecordsForUpload.splice(i, 1);
-      } else {
-        // if (confirm("Are you sure you want to delete?")) {
-        this.$refs.vueFileAgent.deleteFileRecord(fileRecord); // will trigger 'delete' event
-        // }
-      }
-    },
-    fileDeleted(fileRecord) {
-      var i = this.fileRecordsForUpload.indexOf(fileRecord);
-      if (i !== -1) {
-        this.fileRecordsForUpload.splice(i, 1);
-      } else {
-        this.deleteUploadedFile(fileRecord);
-      }
+    reset() {
+      this.files = [];
+      this.message = "";
+      this.error = false;
+      this.inputPhrases = `python developer
+full stack web development
+django frontend`;
     }
   }
 };

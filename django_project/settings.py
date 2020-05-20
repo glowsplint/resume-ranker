@@ -28,7 +28,9 @@ FRONTEND_DIR = os.path.join(BASE_DIR, 'vue-frontend')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-ALLOWED_HOSTS = ['resumeranker.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['resumeranker.herokuapp.com', '127.0.0.1', 'localhost']
+
+APPEND_SLASH = False
 
 # Application definition
 
@@ -52,7 +54,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # Removed CSRF middleware
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
