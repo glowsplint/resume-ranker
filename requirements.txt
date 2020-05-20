@@ -3,5 +3,8 @@ django-cors-headers==3.2.1
 django-heroku==0.3.1
 django-webpack-loader==0.7.0
 djangorestframework==3.11.0
+docx2txt==0.8
+fuzzywuzzy==0.17.0
 gunicorn
+pdfminer.six==20200402
 whitenoise==4.1.4
