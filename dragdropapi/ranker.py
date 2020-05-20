@@ -8,11 +8,11 @@
 
 # ## Usage
 # This script can be used by running it directly, or can be imported into a different python script.
-# 
+#
 # It currently assumes that the inputs will be structured as follows:
 # 1. Resumes/Profiles in a subdirectory `./Resumes/*`
 # 2. Input keywords in the same directory `./keywords.txt`
-# 
+#
 # This script supports `.pdf` and `.docx` files.
 
 # ## Dependencies
@@ -29,22 +29,22 @@
 # docx_doc_list = [Document(item, extract_docx, input_phrases) for item in docx_list]
 # pdf_doc_list = [Document(item, extract_pdf, input_phrases) for item in pdf_list]
 # ```
-# 
+#
 # After that, we create an instance of the Relevance class. You could do this:
-# 
+#
 # ```python
 # relevance = Relevance(docx_doc_list)
 # relevance.add(pdf_doc_list)
 # ```
-# 
+#
 # or, alternatively:
-# 
+#
 # ```python
 # relevance = Relevance()
 # relevance.add(docx_doc_list)
 # relevance.add(pdf_doc_list)
 # ```
-# 
+#
 # Both the above code blocks will achieve the same outcome.
 
 # In[1]:
@@ -61,7 +61,6 @@ from docx2txt import process as extract_docx
 from pdfminer.high_level import extract_text as extract_pdf
 from fuzzywuzzy import fuzz
 
-
 # In[2]:
 
 
@@ -71,7 +70,7 @@ class Document:
     When a class instance is created:
     1. The document is parsed from the provided <filename> via the <parsing_function>
     2. The associated score is generated and stored as self.score
-    
+
     The <file> parameter accepts both filepaths and InMemoryUploadedFile objects.
     This means that Documents can be created from filepaths and InMemoryUploadedFile objects.
     """
@@ -80,7 +79,8 @@ class Document:
         self.parsing_function = parsing_function
         self.input_phrases = input_phrases
         self.file = file
-        self.filename = self.file if isinstance(self.file, str) else self.file.name
+        self.filename = self.file if isinstance(
+            self.file, str) else self.file.name
         self.parsed_text = self.parsing_function(file)
         self.parsed_text = Document.split_and_rejoin(self.parsed_text)
 
@@ -99,7 +99,6 @@ class Document:
         2. The relevance score is the sum of all of these partial ratios
         """
         return sum((fuzz.partial_ratio(input_phrase, self.parsed_text) for input_phrase in self.input_phrases))
-
 
 # In[3]:
 
@@ -164,7 +163,7 @@ if __name__ == '__main__':
     def create_list(ending):
         target = 'resumes'
         return tuple(f'{target}/{f}' for f in os.listdir(f'./{target}') if f.endswith(ending))
-    
+
     pdf_list = create_list('.pdf')
     docx_list = create_list('.docx')
     docx_doc_list = [Document(item, extract_docx, input_phrases)
@@ -175,7 +174,6 @@ if __name__ == '__main__':
     relevance.add(pdf_doc_list)
     relevance.add(docx_doc_list)
 
-
 # In[6]:
 
 
@@ -183,9 +181,9 @@ if __name__ == '__main__':
 
 
 # We use partial_ratio over token_set_ratio because we want to preserve the order of input words.
-# 
+#
 # The metric used here should be extensively tested.
-# 
+#
 # Ideas for now:
 # 1. sum
 # 2. mean

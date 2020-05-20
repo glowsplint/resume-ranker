@@ -17,7 +17,7 @@ class IndexTemplateView(TemplateView):
 @api_view(['POST'])
 def upload(request):
     if request.method == 'POST':
-        input_phrases = request.POST.get('inputPhrases')
+        input_phrases = request.POST.get('inputPhrases').split('\n')
         uploaded_files = request.FILES.getlist('files')
 
         docx_list = [item for item in uploaded_files if item.name.endswith(
@@ -28,15 +28,11 @@ def upload(request):
             Document(item, extract_docx, input_phrases) for item in docx_list]
         pdf_doc_list = [
             Document(item, extract_pdf, input_phrases) for item in pdf_list]
-        # print(f'pdf_doc_list: {pdf_doc_list}')
         relevance = Relevance()
         if len(docx_doc_list):
             relevance.add(docx_doc_list)
         if len(pdf_doc_list):
             relevance.add(pdf_doc_list)
-
-        # Create the server_response
         server_response = relevance.scores
-        print(server_response)
 
     return Response(data=server_response)

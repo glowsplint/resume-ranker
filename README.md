@@ -6,8 +6,6 @@
 | Frontend | **Vue**    | ~~React~~       |
 | Platform | **Heroku** | ~~Firebase~~    |
 
-<!-- | Database | **PostgreSQL** | ~~SQLite~~      | -->
-
 ## MVP by end of May:
 
 1. Uses batch processing (instead of one-by-one processing)
@@ -15,7 +13,7 @@
 3. Uses sum of partial ratio as the final value
 4. No logins
 5. Single page application with one button "Upload" that sends files and input text to server, waits on response from server
-6. Server should execute the script with the uploaded files and input text, and send the json back to the client
+6. Server should execute the script with the uploaded files and input text, and send a response back to the client
 
 ## Tasks
 
@@ -28,8 +26,9 @@
 7. ~~Set up Vue text input space~~ (13/5)
 8. ~~Set up REST API between Django and Vue~~ (19/5)
 9. ~~Set up Python script to run on the API call from client~~ (20/5)
-10. Set up Vue frontend to display the API response from server
-11. Fix the /admin login bug to allow superuser access
+10. ~~Set up Vue frontend to display the API response from server~~ (20/5)
+11. Fix the CSRF token security issue
+12. Fix the /admin login bug to allow superuser access
 
 ## Dependencies
 

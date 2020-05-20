@@ -27,9 +27,8 @@ FRONTEND_DIR = os.path.join(BASE_DIR, 'vue-frontend')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-
 ALLOWED_HOSTS = ['resumeranker.herokuapp.com', '127.0.0.1', 'localhost']
-
+CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:8080', 'http://localhost:8080']
 APPEND_SLASH = False
 
 # Application definition
