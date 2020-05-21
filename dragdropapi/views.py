@@ -28,11 +28,9 @@ def upload(request):
             Document(item, extract_docx, input_phrases) for item in docx_list]
         pdf_doc_list = [
             Document(item, extract_pdf, input_phrases) for item in pdf_list]
-        relevance = Relevance()
-        if len(docx_doc_list):
-            relevance.add(docx_doc_list)
-        if len(pdf_doc_list):
-            relevance.add(pdf_doc_list)
+
+        docx_doc_list.extend(pdf_doc_list)
+        relevance = Relevance(docx_doc_list)
         server_response = relevance.scores
 
     return Response(data=server_response)

@@ -29,6 +29,8 @@
 10. ~~Set up Vue frontend to display the API response from server~~ (20/5)
 11. Fix the CSRF token security issue
 12. Fix the /admin login bug to allow superuser access
+13. Fix the font not rendering properly
+14. Fix the Heroku app providing different relevance scores from the offline version
 
 ## Dependencies
 

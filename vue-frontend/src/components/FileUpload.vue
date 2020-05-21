@@ -5,8 +5,9 @@
       This app allows the recruiter to identify and prioritise the most relevant
       candidates from a large pool of candidates, by ranking a provided set of
       profiles by relevance. It requires a provided set of input keywords
-      (rankings are provided based on the number of keyword matches). The
-      relevance metric uses
+      (rankings are provided based on the number of keyword matches. Phrases in
+      "Input keywords" must be separated into multiple lines as shown. Files are
+      not stored across multiple uses. The relevance metric uses
       <a href="https://github.com/seatgeek/fuzzywuzzy#partial-ratio"
         >partial ratio</a
       >.

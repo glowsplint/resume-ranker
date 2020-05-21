@@ -2,26 +2,32 @@
 # coding: utf-8
 
 # # Resume Ranker
+# Developed by [Tym Teo](https://www.linkedin.com/in/tym-teo/), May 2020.
 
 # ## Overview
 # This script allows the recruiter to identify and prioritise the most relevant candidates from a large pool of candidates, by ranking a provided set of profiles by relevance. It requires a provided set of input keywords (rankings are provided based on the number of keyword matches), and prints the output to a text file `Ranking.txt` in the current directory.
 
 # ## Usage
-# This script can be used by running it directly, or can be imported into a different python script.
+# ### This script can be used in several ways:
+# 1. Run the `ranker.ipynb` notebook directly
+# 2. Run the `ranker.py` python script directly (`ranker.py` is the `.py` version of the notebook)
+# 3. Import the `ranker.py` into a separate python script (we use this approach in the app version of this)
+#     - The app version can be found [here](https://resumeranker.herokuapp.com).
 #
+# ### For options 1 and 2:
 # It currently assumes that the inputs will be structured as follows:
 # 1. Resumes/Profiles in a subdirectory `./Resumes/*`
-# 2. Input keywords in the same directory `./keywords.txt`
+# 2. Input key phrases in the same directory `./keywords.txt`
 #
-# This script supports `.pdf` and `.docx` files.
+# This script only supports `.pdf` and `.docx` files.
 
 # ## Dependencies
 # - `pdfminer.six` module for parsing .pdf documents. The latest version has to be used, as older versions do not contain the `high_level` submodule
 # - `docx2txt` module for parsing .docx files.
 
 # ## Classes
-# 1. Document class: Calculates the score value of a profile.
-# 2. Relevance class: Aggregates the score value across all the profiles.
+# 1. Document class: Calculates the score value of a profile, from a file, parsing function, and input phrases.
+# 2. Relevance class: Aggregates the score value across all the profiles, by taking in a list of Document objects.
 
 # ## Usage
 # The Relevance class takes in a list of Document objects - let's define that first:
@@ -45,7 +51,25 @@
 # relevance.add(pdf_doc_list)
 # ```
 #
-# Both the above code blocks will achieve the same outcome.
+# Both the above code blocks will achieve the same outcome. You could even merge the two lists before adding it to the Relevance instance. The resulting code would be neater and is the preferred approach.
+#
+# ```python
+# docx_doc_list.extend(pdf_doc_list)
+# relevance = Relevance(docx_doc_list)
+# ```
+#
+# We find the scores by inspecting the scores() property of the Relevance instance:
+# ```python
+# relevance.scores
+# ```
+
+# ## Rationale
+# We use partial_ratio over token_set_ratio because we want to preserve the order of input words. Currently, our final metric is simply the sum of partial ratios. However, the metric used here should be extensively tested. Other ideas include taking the mean of partial ratios (scaled by the number of words in the profile Document) - the idea being that there should be a penalty for being too verbose in your profile.
+#
+# ## Possible areas of improvement
+# 1. Experiment with the metric
+# 2. Add the spaCy language model version to the app if Heroku's free dyno constraints are not binding
+# 3. Illustrate the breakdowns of how the final score metric came to be, for every profile
 
 # In[1]:
 
@@ -54,12 +78,11 @@ import json
 import os
 
 from collections import OrderedDict
-from collections.abc import Iterable
-from datetime import datetime
-from typing import Dict, Tuple, Sequence, List, Set, Callable
+from typing import List, Callable
 from docx2txt import process as extract_docx
 from pdfminer.high_level import extract_text as extract_pdf
 from fuzzywuzzy import fuzz
+
 
 # In[2]:
 
@@ -72,7 +95,7 @@ class Document:
     2. The associated score is generated and stored as self.score
 
     The <file> parameter accepts both filepaths and InMemoryUploadedFile objects.
-    This means that Documents can be created from filepaths and InMemoryUploadedFile objects.
+    This means that Documents can be created from either of these.
     """
 
     def __init__(self, file, parsing_function: Callable[[str], str], input_phrases: str):
@@ -99,6 +122,7 @@ class Document:
         2. The relevance score is the sum of all of these partial ratios
         """
         return sum((fuzz.partial_ratio(input_phrase, self.parsed_text) for input_phrase in self.input_phrases))
+
 
 # In[3]:
 
@@ -162,7 +186,7 @@ if __name__ == '__main__':
 
     def create_list(ending):
         target = 'resumes'
-        return tuple(f'{target}/{f}' for f in os.listdir(f'./{target}') if f.endswith(ending))
+        return [f'{target}/{f}' for f in os.listdir(f'./{target}') if f.endswith(ending)]
 
     pdf_list = create_list('.pdf')
     docx_list = create_list('.docx')
@@ -170,25 +194,11 @@ if __name__ == '__main__':
                      for item in docx_list]
     pdf_doc_list = [
         Document(item, extract_pdf, input_phrases) for item in pdf_list]
-    relevance = Relevance()
-    relevance.add(pdf_doc_list)
-    relevance.add(docx_doc_list)
+    docx_doc_list.extend(pdf_doc_list)
+    relevance = Relevance(docx_doc_list)
 
-# In[6]:
+
+# In[5]:
 
 
 # relevance.scores
-
-
-# We use partial_ratio over token_set_ratio because we want to preserve the order of input words.
-#
-# The metric used here should be extensively tested.
-#
-# Ideas for now:
-# 1. sum
-# 2. mean
-
-# Possible improvements:
-# 1. Experiment with the metric
-# 2. Add the spacy language model
-# 3. Display all instances where partial_ratio > 0, and the corresponding input_phrase
