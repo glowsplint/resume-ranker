@@ -1,42 +1,10 @@
-## Stack
+## Resume Ranker
 
-|          | Chosen     | ~~Alternative~~ |
-| -------- | ---------- | --------------- |
-| Backend  | **Django** | ~~Flask~~       |
-| Frontend | **Vue**    | ~~React~~       |
-| Platform | **Heroku** | ~~Firebase~~    |
+This repository contains the codebase for the [resume-ranker project](resumeranker.herokuapp.com). Given a set of input keywords, it ranks a pool of `.pdf` and `.docx` candidate profiles profiles by semantical relevance. This project is built with a Django backend, Vue frontend, and the Heroku platform for hosting.
 
-## MVP by end of May:
+### Dependencies
 
-1. Uses batch processing (instead of one-by-one processing)
-2. Uses Levenshtein distance for comparison -- more lightweight
-3. Uses sum of partial ratio as the final value
-4. No logins
-5. Single page application with one button "Upload" that sends files and input text to server, waits on response from server
-6. Server should execute the script with the uploaded files and input text, and send a response back to the client
-
-## Tasks
-
-1. ~~Set up Django project~~ (5/5)
-2. ~~Set up Vue project~~ (6/5)
-3. ~~Enable Django hot-reloading in development serving Vue frontend~~ (8/5)
-4. ~~Rewrite the script to use Levenshtein distance instead of the spaCy language models~~ (11/5)
-5. ~~Deploy Vue frontend with Django backend on Heroku platform~~ (12/5)
-6. ~~Set up Vue upload file dialog~~ (13/5)
-7. ~~Set up Vue text input space~~ (13/5)
-8. ~~Set up REST API between Django and Vue~~ (19/5)
-9. ~~Set up Python script to run on the API call from client~~ (20/5)
-10. ~~Set up Vue frontend to display the API response from server~~ (20/5)
-11. Fix the CSRF token security issue
-12. Fix the /admin login bug to allow superuser access
-13. Fix the font not rendering properly
-14. Fix the Heroku app providing different relevance scores from the offline version
-
-## Dependencies
-
-### Main dependencies
-
-We categorise the dependencies by those used in production and in development. The development dependencies allow the Django development server to hot-reload off the Vue development server, enabling updates to be seen quickly without creating a production build each time.
+We categorise the primary dependencies by those used in production and in development. The development dependencies allow the Django development server to hot-reload off the Vue development server, enabling updates to be seen quickly without creating a production build each time.
 
 | Production                                                                    | Version    |
 | ----------------------------------------------------------------------------- | ---------- |
@@ -56,7 +24,7 @@ We categorise the dependencies by those used in production and in development. T
 \*_In the dependency table above,_ **bold text** _denotes a Vue plugin._
 
 The full npm dependency table can be found at `./vue-frontend/package.json` and can be installed via `cd vue-frontend npm install`
-The full python dependency table can be found at `./requirements.txt` and can be installed via `python install -r requirements.txt`. Note that the `gunicorn` dependency is only used in Heroku deployment and not development.
+The full python dependency table can be found at `./requirements.txt` and can be installed via `pip install -r requirements.txt`. Note that the `gunicorn` dependency is only used in Heroku deployment, but not in development.
 
 ## Transitioning from development to deployment
 
@@ -71,3 +39,12 @@ You will need to comment/uncomment certain lines in the vue.config.js file, loca
 | `SECRET_KEY`            | \<SECRET_KEY> |
 
 <!-- https://www.youtube.com/watch?v=dxgbgYtNzCw -->
+
+### To-do
+
+1. Fix "Upload" button clearing the keywords
+2. Allow multi-part upload while retaining previously uploaded information in the same session
+3. Fix the CSRF token security issue
+4. Fix the /admin login bug to allow superuser access
+5. Fix the font not rendering properly
+6. Fix the Heroku app providing different relevance scores from the offline version (check if caching is an issue)
