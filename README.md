@@ -29,7 +29,7 @@ The full python dependency table can be found at `./requirements.txt` and can be
 
 You will need to comment/uncomment certain lines in the vue.config.js file, located at `./vue-frontend/vue.config.js`. This will allow us to toggle between hot-reloading from the Vue development server while in development, to the built files in the `./vue-frontend/dist` directory in production.
 
-Heroku is connected to GitHub. Simply `git push origin master` and Heroku will deploy from the latest version of the `master` branch.
+Heroku is connected to GitHub. Simply `git push origin master` and manually deploy from the Heroku GUI. Heroku will deploy from the latest version of the `master` branch.
 
 ### Heroku configurations
 
@@ -43,8 +43,6 @@ Heroku is connected to GitHub. Simply `git push origin master` and Heroku will d
 
 ## To-do
 
-- Migrate to FastAPI + deploy
-- Add deployment instructions
 - Allow multi-part upload while retaining previously uploaded information in the same session
 - Fix the font not rendering properly
 - Fix the Heroku app providing different relevance scores from the offline version (check if caching is an issue)
