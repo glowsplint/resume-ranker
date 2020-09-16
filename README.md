@@ -23,11 +23,15 @@ We categorise the primary dependencies by those used in production and in develo
 The full npm dependency table can be found at `./vue-frontend/package.json` and can be installed via `cd vue-frontend npm install`.
 The full python dependency table can be found at `./requirements.txt` and can be installed via `pip install -r requirements.txt`. Note that the `gunicorn` dependency is only used in Heroku deployment, but not in development.
 
-## Transitioning from development to deployment
+## Deployment to Heroku
+
+### Instructions
 
 You will need to comment/uncomment certain lines in the vue.config.js file, located at `./vue-frontend/vue.config.js`. This will allow us to toggle between hot-reloading from the Vue development server while in development, to the built files in the `./vue-frontend/dist` directory in production.
 
-## Heroku configuration
+Heroku is connected to GitHub. Simply `git push origin master` and Heroku will deploy from the latest version of the `master` branch.
+
+### Heroku configurations
 
 | Argument                | Value         |
 | ----------------------- | ------------- |
@@ -37,7 +41,7 @@ You will need to comment/uncomment certain lines in the vue.config.js file, loca
 
 <!-- https://www.youtube.com/watch?v=dxgbgYtNzCw -->
 
-### To-do
+## To-do
 
 - Migrate to FastAPI + deploy
 - Add deployment instructions

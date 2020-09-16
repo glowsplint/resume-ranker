@@ -1,4 +1,9 @@
+aiofiles
 docx2txt
+fastapi
 fuzzywuzzy
-uvicorn
+jinja2
 pdfminer.six
+python-Levenshtein
+python-multipart
+uvicorn
