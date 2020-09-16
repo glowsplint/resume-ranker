@@ -14,7 +14,7 @@ module.exports = {
       .plugin("BundleTracker")
       .use(BundleTracker, [{ filename: "./webpack-stats.json" }]);
 
-    config.output.filename("bundle.js");
+    config.output.filename("static/bundle.js");
     config.optimization.splitChunks(false);
     config.resolve.alias.set("__STATIC__", "static");
 
@@ -31,8 +31,8 @@ module.exports = {
 
   css: {
     extract: {
-      filename: "bundle.css",
-      chunkFilename: "bundle.css"
+      filename: "static/bundle.css",
+      chunkFilename: "static/bundle.css"
     }
   }
 };

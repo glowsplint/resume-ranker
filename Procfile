@@ -1,1 +1,1 @@
-web: gunicorn django_project.wsgi
+web: uvicorn resumeranker.app:app --host=0.0.0.0 --port=${PORT:-5000}

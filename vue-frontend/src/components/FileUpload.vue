@@ -99,7 +99,6 @@ django web development`,
         });
 
       this.loading = true;
-      this.inputPhrases = "";
       this.files = [];
     },
     clear() {

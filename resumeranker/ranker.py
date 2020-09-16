@@ -82,6 +82,7 @@ from typing import List, Callable
 from docx2txt import process as extract_docx
 from pdfminer.high_level import extract_text as extract_pdf
 from fuzzywuzzy import fuzz
+from tempfile import SpooledTemporaryFile
 
 
 # In[2]:
@@ -102,10 +103,15 @@ class Document:
         self.parsing_function = parsing_function
         self.input_phrases = input_phrases
         self.file = file
-        self.filename = self.file if isinstance(
-            self.file, str) else self.file.name
         self.parsed_text = self.parsing_function(file)
         self.parsed_text = Document.split_and_rejoin(self.parsed_text)
+
+        if isinstance(self.file, str):
+            self.filename = self.file
+        elif isinstance(self.file, SpooledTemporaryFile):
+            self.filename = self.file.filename
+        else:
+            self.filename = self.file.name
 
     def __repr__(self):
         return f"Document(file='{self.file}')"
