@@ -191,7 +191,7 @@ if __name__ == '__main__':
     print(f'input_phrases = {input_phrases}')
 
     def create_list(ending):
-        target = 'resumes'
+        target = 'data'
         return [f'{target}/{f}' for f in os.listdir(f'./{target}') if f.endswith(ending)]
 
     pdf_list = create_list('.pdf')

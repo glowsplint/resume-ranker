@@ -1,21 +1,5 @@
-secrets.py
-local_settings.py
-
-.DS_Store
-vue-frontend/node_modules/
-
-# Editor directories and files
 .vscode
+__pycache__
 
-# PyInstaller
-*.manifest
-*.spec
-
-### Django ###
-*.log
-*.pot
-*.pyc
-__pycache__/
-
-.env
-db.sqlite3
+vue-frontend/node_modules/
+data

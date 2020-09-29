@@ -6,8 +6,9 @@
       candidates from a large pool of candidates, by ranking a provided set of
       profiles by relevance. It requires a provided set of input keywords
       (rankings are provided based on the number of keyword matches. Phrases in
-      "Input keywords" must be separated into multiple lines as shown. Files are
-      not stored across multiple uses. The relevance metric uses
+      "Input keywords" should be separated into multiple lines as shown. Files
+      need to be uploaded from a single directory, and are not stored across
+      multiple uses. The relevance metric uses
       <a href="https://github.com/seatgeek/fuzzywuzzy#partial-ratio"
         >partial ratio</a
       >.
@@ -46,6 +47,7 @@
       class="elevation-1 mt-5 px-4"
       :headers="headers"
       :items="results"
+      dense
     />
   </v-container>
 </template>
@@ -59,8 +61,14 @@ export default {
   data() {
     return {
       files: [],
-      inputPhrases: `full stack python developer
-django web development`,
+      inputPhrases: `full stack Python developer
+experience with Python frameworks
+Django
+Flask
+Bottle
+FastAPI
+Understanding of databases and SQL
+Knowledge of JavaScript and React framework`,
       headers: [
         {
           text: "File Name",
