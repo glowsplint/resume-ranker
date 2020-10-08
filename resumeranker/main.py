@@ -8,12 +8,10 @@ from resumeranker.ranker import Document, Relevance, extract_docx, extract_pdf
 
 app = FastAPI()
 
-# Mounting static files
 app.mount(
     '/static', StaticFiles(directory='./vue-frontend/dist/static'), name='static')
 templates = Jinja2Templates(directory='./vue-frontend/dist')
 
-# Furnishing index.html
 @app.get('/')
 async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
@@ -33,5 +31,4 @@ async def process(inputPhrases: str = Form(...), files: List[UploadFile] = File(
                     for item in pdf_list]
     docx_doc_list.extend(pdf_doc_list)
     relevance = Relevance(docx_doc_list)
-    print(relevance.scores)
     return relevance.scores
